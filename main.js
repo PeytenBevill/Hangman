@@ -10,49 +10,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// creates and empty "board" for the user to see where marks can be placed.
-// using let because the variable is expected to change with more 'X's and 'O's to add
-let board = [
-  [' ', ' ', ' '],
-  [' ', ' ', ' '],
-  [' ', ' ', ' ']
-];
+// instructions start here
 
-// assigns the first mark as 'X'
-// using let because the variable is expected to change from 'X' to 'O' and back
-let playerTurn = 'X';
 
-// is a function that print the current status of the board using the variable - board
-const printBoard = () => {
-  console.log('   0  1  2');
-  console.log('0 ' + board[0].join(' | '));
-  console.log('  ---------');
-  console.log('1 ' + board[1].join(' | '));
-  console.log('  ---------');
-  console.log('2 ' + board[2].join(' | '));
-}
 
-const horizontalWin = () => {
-  // Your code here to check for horizontal wins
-}
 
-const verticalWin = () => {
-  // Your code here to check for vertical wins
-}
 
-const diagonalWin = () => {
-  // Your code here to check for diagonal wins
-}
-
-const checkForWin = () => {
-  // Your code here call each of the check for types of wins
-}
-
-const ticTacToe = (row, column) => {
-  // Your code here to place a marker on the board
-  // then check for a win
-}
-
+//Terminal function @TODO
 const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");

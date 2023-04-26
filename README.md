@@ -1,58 +1,65 @@
-# JS211_TicTacToe[![CircleCI](https://circleci.com/gh/AustinCodingAcademy/javascript-workbook/tree/gh-pages.svg?style=svg)](https://circleci.com/gh/AustinCodingAcademy/javascript-workbook/tree/gh-pages)
-
-![](http://en.gravatar.com/userimage/107370100/a08594145564536138dfaaf072c7b241.png)
 
 # Austin Coding Academy
 
-## JavaScript 211 Project: Tic, Tac, Toe
+## JavaScript 211 Project: Hangman
 
-### Part 1: Tic, Tac, Toe in the terminal
+### Git instructions:
+1. git clone url
+1. git checkout -b name
+1. code .
 
-1. Fork and clone [Tic, Tac, Toe Repo](https://github.com/AustinCodingAcademy/JS211_TicTacToeProject.git)
-1. Ensure you have installed all dependencies/packages: `npm i`
-1. Open `main.js` and look at the Unit Test, see what is being called, passed as input arguments, and what the expected results are.
-1. Ensure you know how to run the unit test:
-    * `npm test main.js` + `ctrl + c` to escape.
-1. Use a whiteboard to work out a solution. HOW DOES TIC, TAC, TOE actually work in excruciating detail?
-1. Translate the broad ideas to pseudo code
-1. Convert the pseudo code to real JavaScript Code
-1. Add the the JavaScript code you've come up with one step at a time in `main.js`
-1. Work through your bugs.
-1. Use `node main.js` to run the game + `ctrl + c` to escape.
-1. Achieve green checks for each of your unit tests.
-1. Bonus Challenge: Since the game can only be won with three marks in a row, the minimum amount of marks required for a possible win is 5. There is no reason to run `checkForWin()` for marks 1-4. Adjust the program to only run `checkForwin()` after at least 5 moves have been made.
+1. git add .
+1. git commit -m ""
+1. git push
+1. your terminal should tell you it was unsuccessful and give you the command that says --set-upstream. copy and paste that
 
-#### Part 2: Use the DOM to build a GUI for your game
 
-1. Open `index.html` to find a pre-built 3x3 grid using `<td>` tags (table-data)
-    * This html file is styled with `tictactoe.css`
-    * It also has a script tag that links it to `dom-tictactoe.js`
-1. Open `dom-tictactoe.js`. You'll find starter code that helps you attach the logic from part 1 to the DOM so a user can use the screen instead of the terminal to play the game.
-1. Follow the instructions at the top of the js file to find the `@Todo`s and place your code in the appropriate place to make the game work!
+### Instructions
 
-#### Part 3: Build It from Scratch
+ 1. First build this project in the terminal
+  2. Then attach it to the DOM
+  3. Work through the challenge together
+  4. As always whiteboard it and make a code plan
+  5. Translate from English to pseudo code then to JavaScript
+  6. Test
+  7. Present to class
+  8. Turn in the URL to your repo, once for each person in your group
 
-1. Push Yourself Further
-1. Create a new repo in GitHub, clone it
-1. Create an `index.html` file.
-1. Create a `tictactoe-styles.css` file
-1. Create a `tictactoe-scripts.js` file
-1. Build your game working through each little step one must complete to do it.
+#### Example
 
-*This is where you get good!*
+  Input: Any letter
+  _ _ _ _ _
 
-#### Hints
+  L (input)
+  _ _ L L _ (return)
 
-1. Run your unit tests first!!
-1. Use [repl.it](https://www.repl.it) to write the solution code first. (it's a faster environment vs using the `node main.js` command over and over again.)
-1. Read the comments in `main.js`
-1. Use the [JS Docs at W3S on Accessing the First Array Element](https://www.w3schools.com/js/js_arrays.asp)
-1. Push yourself further.
-1. Look at your hints!
-1. Don't skip the planning portion!!
-1. **Clone, setup, testing, and running instructions for all projects is below**
+  H (input)
 
-******
+  H _ L L _
+
+  E (input)
+
+  H E L L _
+
+  O (input)
+
+  H E L L O
+
+#### Push yourself further
+
+ Further Practice Challenge - Keep track of the user's lives, so if they guess incorrectly they lose a life.
+
+  Challenge example:
+
+  _ _ _ _ _
+
+  V (input)
+
+  "V" is not in the word! 4 lives left!
+
+  _ _ _ _ _
+
+
 
 ## Cloning Your Project
 
