@@ -21,17 +21,30 @@ const randomWords = require('random-words')
 const correctWord = randomWords(1)
 console.log("this is the correct word", correctWord)
 
-let correctLetters = correctWord.map(str => str.split('')).flat()
+let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
 
 console.log(correctLetters)
 
 
 const printBoard = (arr) => {
   for(let i = 0; i < arr.length; i++){
-    process.stdout.write('_ ')
+    console.log("")
+    for(let j = 0; j < arr.length; j++){
+      process.stdout.write('a ')
+      process.stdout.write('_ ')
+    }
+    
   }
 }
 printBoard(correctLetters)
+
+
+function ifLetterInArray(correctLettersArray, guessLetter){
+  if(correctLettersArray.includes(guessLetter)){
+    
+  }
+}
+
 
 
 
@@ -53,6 +66,9 @@ function checkForWin (correctLetters) {//function check for win or lose
 //function for wrong letters into a letter bank that can't be reused
 
 //Terminal function @TODO edit function to apply to hangman
+
+
+
 const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");
