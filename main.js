@@ -10,13 +10,26 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// instructions start here
+const randomWords = require('random-words')
+
+const correctWord = randomWords(1)
 
 
+//function that prints the board based on how many letters are in the word
 
+//function that shows how many letters are in the word (turn word to individual letters)
 
+//Player guesses a letter
 
-//Terminal function @TODO
+//function that shows if the letter is in the word and how many times and what spaces it's in
+
+//function for win
+
+//function for losing
+
+//function for wrong letters into a letter bank that can't be reused
+
+//Terminal function @TODO edit function to apply to hangman
 const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");

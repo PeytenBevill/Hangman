@@ -3,6 +3,12 @@
 
 ## JavaScript 211 Project: Hangman
 
+
+### Availability
+1. Peyten: T/Th all day, M/W/F after 4:30pm, weekends if needed
+1. Karizma: M after 1pm, T after 1pm, W after 3pm, Th, after 1pm, F after 5pm, weekends if needed
+1. Fernando: M-F after 6ish, weekends if needed
+
 ### Git instructions:
 1. git clone url
 1. git checkout -b name
