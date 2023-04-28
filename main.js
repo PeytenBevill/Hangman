@@ -42,11 +42,21 @@ printBoard(correctLetters)
 
 //function that shows if the letter is in the word and how many times and what spaces it's in
 
+
 //function for win
 
 //function for losing
 
 //function for wrong letters into a letter bank that can't be reused
+const wrongLetters = () => {
+  let letterBank = []
+  if(guessLetter === false){
+    guessLetter.push(letterBank)
+  } else if(letterBank.includes(guessLetter)){
+    console.log("Letter has already been guessed")
+    return
+  }
+}
 
 //Terminal function @TODO edit function to apply to hangman
 const getPrompt = () => {
