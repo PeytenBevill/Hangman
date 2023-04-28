@@ -43,7 +43,12 @@ printBoard(correctLetters)
 
 //function that shows if the letter is in the word and how many times and what spaces it's in 
 
-//function check for win or lose
+function checkForWin (correctLetters) {//function check for win or lose
+  if () { // spaces not filled and out of guesses, player loses
+
+  } 
+  else //if array of spaces is filled, player wins
+}
 
 //function for wrong letters into a letter bank that can't be reused
 
@@ -66,10 +71,6 @@ const getPrompt = () => {
 if (typeof describe === 'function') {
 
   describe('#ticTacToe()', () => {
-    it('print correct amount of spaces for correct word', () => {
-      ticTacToe(1, 1);
-      assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
     it('should place a letter on the dashes', () => {
       ticTacToe(1, 1);
       assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
@@ -78,21 +79,12 @@ if (typeof describe === 'function') {
       ticTacToe(0, 0);
       assert.deepEqual(board, [ ['O', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
     });
-    it('should place correct guessed letter into correct space corresponding to correct word', () => {
-      board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
-      assert.equal(verticalWin(), true);
-    });
     it('should place wrong letters in bank', () => {
       board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
       assert.equal(horizontalWin(), true);
     });
-    
+
     it('should detect a win', () => {
-      ticTacToe(0, 0)
-      ticTacToe(0, 1)
-      ticTacToe(1, 1)
-      ticTacToe(0, 2)
-      ticTacToe(2, 2)
       assert.equal(checkForWin(), true);
     });
   });
