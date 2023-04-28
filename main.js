@@ -30,6 +30,9 @@ const correctWord = randomWords(1)
 //function for wrong letters into a letter bank that can't be reused
 
 //Terminal function @TODO edit function to apply to hangman
+
+
+
 const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");
