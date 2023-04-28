@@ -46,6 +46,13 @@ printBoard(correctLetters)
 //function for win
 
 //function for losing
+const guessAmount = () => {
+  if(letterBank.length === 6){
+    console.log('You lost!')
+  } else {
+    return
+  }
+}
 
 //function for wrong letters into a letter bank that can't be reused
 const wrongLetters = () => {
