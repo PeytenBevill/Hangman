@@ -10,9 +10,29 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+let board = []
+
+
+//for correctLetters.length, print 
+
+
 const randomWords = require('random-words')
 
-const correctWord = randomWords(1) //add to uppercase
+const correctWord = randomWords(1)
+console.log("this is the correct word", correctWord)
+
+let correctLetters = correctWord.map(str => str.split('')).flat()
+
+console.log(correctLetters)
+
+
+const printBoard = (arr) => {
+  for(let i = 0; i < arr.length; i++){
+    process.stdout.write('_ ')
+  }
+}
+printBoard(correctLetters)
+
 
 
 //function that prints the board based on how many letters are in the word
