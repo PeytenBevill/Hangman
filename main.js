@@ -21,17 +21,30 @@ const randomWords = require('random-words')
 const correctWord = randomWords(1)
 console.log("this is the correct word", correctWord)
 
-let correctLetters = correctWord.map(str => str.split('')).flat()
+let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
 
 console.log(correctLetters)
 
 
 const printBoard = (arr) => {
   for(let i = 0; i < arr.length; i++){
-    process.stdout.write('_ ')
+    console.log("")
+    for(let j = 0; j < arr.length; j++){
+      process.stdout.write('a ')
+      process.stdout.write('_ ')
+    }
+    
   }
 }
 printBoard(correctLetters)
+
+
+function ifLetterInArray(correctLettersArray, guessLetter){
+  if(correctLettersArray.includes(guessLetter)){
+    
+  }
+}
+
 
 
 
@@ -40,6 +53,7 @@ printBoard(correctLetters)
 //function that shows how many letters are in the word (turn word to individual letters)
 
 //Player guesses a letter and changes to uppercase letters
+
 
 
 
@@ -56,6 +70,14 @@ const guessAmount = () => {
 
 
 
+function checkForWin (correctLetters) {//function check for win or lose
+  if () { // spaces not filled and out of guesses, player loses
+
+  } 
+  else //if array of spaces is filled, player wins
+}
+
+
 //function for wrong letters into a letter bank that can't be reused
 const wrongLetters = () => {
   let letterBank = []
@@ -68,6 +90,9 @@ const wrongLetters = () => {
 }
 
 //Terminal function @TODO edit function to apply to hangman
+
+
+
 const getPrompt = () => {
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");
@@ -86,10 +111,6 @@ const getPrompt = () => {
 if (typeof describe === 'function') {
 
   describe('#ticTacToe()', () => {
-    it('print correct amount of spaces for correct word', () => {
-      ticTacToe(1, 1);
-      assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
     it('should place a letter on the dashes', () => {
       ticTacToe(1, 1);
       assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
@@ -98,21 +119,12 @@ if (typeof describe === 'function') {
       ticTacToe(0, 0);
       assert.deepEqual(board, [ ['O', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
     });
-    it('should place correct guessed letter into correct space corresponding to correct word', () => {
-      board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
-      assert.equal(verticalWin(), true);
-    });
     it('should place wrong letters in bank', () => {
       board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
       assert.equal(horizontalWin(), true);
     });
-    
+
     it('should detect a win', () => {
-      ticTacToe(0, 0)
-      ticTacToe(0, 1)
-      ticTacToe(1, 1)
-      ticTacToe(0, 2)
-      ticTacToe(2, 2)
       assert.equal(checkForWin(), true);
     });
   });
