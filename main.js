@@ -10,28 +10,77 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-let board = []
-
-
-//for correctLetters.length, print 
-
 
 const randomWords = require('random-words')
-
 const correctWord = randomWords(1)
-console.log("this is the correct word", correctWord)
 
-let correctLetters = correctWord.map(str => str.split('')).flat()
 
+console.log("this is the random word", correctWord)
+
+//we may not need to turn this into a separate string array
+let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
+
+console.log(correctWord)
 console.log(correctLetters)
+ function printBoard(correctWord, guessedLetters){
+   for(let i = 0; i < arr.length; i++){
+    if(checkIfLetterInArray(guessedLetters, correctWord))
+     process.stdout.write('_ ')    
+   }
+   else{
+    process.stdout.write('_ ')    
 
+   }
+ }
 
-const printBoard = (arr) => {
-  for(let i = 0; i < arr.length; i++){
-    process.stdout.write('_ ')
+// printBoard("Inside of printBoard", correctLetters)
+
+//this function will display the 
+let letterBank = [];
+
+function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
+ 
+  if (correctLetters.includes(guessedLetter)|| incorrectGuesses.includes(guessedLetter)) {
+    //changed has to includes
+    console.log("You already guessed this letter.");
+    return;
+  } else if (!correctLetters.includes(guessedLetter)) {
+    //changed from guessedLetter ==== false
+    letterBank.push(guessedLetter); // switched whats being pushed to where
+    console.log("Wrong guess");
+    incorrectGuesses++;
+  } else if (letterBank.includes(guessedLetter)) {
+    console.log("Letter has already been guessed");
+    return;
+  } else {
+    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
+
+    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
+    for (let i = 0; i < correctLetters.length; i++) {
+      //traverse the random word and find all ocurrences of the letter in the word
+      if (correctLetters[i] === guessedLetter) {
+        indexOfLetter.push(i);
+      }
+    }
+    letterBank.push(guessedLetter);
+    console.log("Correct guess");
+    return indexOfLetter;
   }
+  // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
+  // console.log("Letters used: ", letterBank);
 }
-printBoard(correctLetters)
+
+
+function displayWord(correctWord, guessedLetter) {
+  let displayWord = "";
+  for (let i = 0; i < correctWord.length; i++) {
+    if (guessedLetter.has(correctWord[i]))
+      displayWord = displayWord + correctWord[i] + " ";
+    else displayWord = displayWord + "_ ";
+  }
+  return displayWord; // added this return statement
+}
+
 
 
 let letterBank = [];
@@ -72,24 +121,45 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
 }
 
 
-function checkForWin (correctLetters) {//function check for win or lose
-  if () { // spaces not filled and out of guesses, player loses
 
-  } 
-  else //if array of spaces is filled, player wins
+
+
+//function for win
+const checkForWin = () => {
+  if(correctLetters.length === guessedLetters.length){
+    console.log("You won!")
+    process.exit(0)
+  }
 }
 
 
 
+//function for losing
+const guessAmount = () => {
+  if(incorrectGuesses === 6){
+    console.log('You lost!')
+    process.exit(0)
+  }
+}
+
+
+
+
+
 //Terminal function @TODO edit function to apply to hangman
+
+
+
+
 const getPrompt = () => {
   printBoard();
-  console.log("It's Player " + playerTurn + "'s turn.");
-  rl.question('row: ', (row) => {
-    rl.question('column: ', (column) => {
-      ticTacToe(row, column);
-      getPrompt();
-    });
+  console.log("Guess a letter, Player ");
+  rl.question('', (guessedLetter) => {
+    checkArray(guessedLetter.toLowerCase());
+    displayWord(correctWord, guessedLetter)
+    guessAmount()
+    checkForWin()
+    getPrompt();
   });
 }
 
@@ -128,4 +198,6 @@ if (typeof describe === 'function') {
         expect(result).toBe('_','a','_','a','_','a');
       });
     });
+
   });
+
