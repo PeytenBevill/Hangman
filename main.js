@@ -21,6 +21,7 @@ const correctWord = randomWords(1)
 
 let correctLetters = correctWord.map(str => str.split('')).flat()
 
+
 // console.log(correctLetters)
 
 let letterBank = [];
@@ -28,6 +29,7 @@ let guessedLetters = []
 
 let incorrectGuesses = 0;
 let board = Array(correctLetters.length).fill('_')
+
 
 const printBoard = () => {
   console.log(board.join(' '));
