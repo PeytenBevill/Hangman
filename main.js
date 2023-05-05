@@ -84,6 +84,7 @@ function displayWord(correctWord, guessedLetter) {
 }
 
 
+
 //this function will get input(current guessed letter) from the user in the terminal
 function getCurrentGuessedLetter(){
   const readInput = readline.Interface({
