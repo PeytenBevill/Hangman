@@ -33,42 +33,7 @@ console.log(correctLetters)
    }
  }
 
-// printBoard("Inside of printBoard", correctLetters)
 
-//this function will display the 
-let letterBank = [];
-
-function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
- 
-  if (correctLetters.includes(guessedLetter)|| incorrectGuesses.includes(guessedLetter)) {
-    //changed has to includes
-    console.log("You already guessed this letter.");
-    return;
-  } else if (!correctLetters.includes(guessedLetter)) {
-    //changed from guessedLetter ==== false
-    letterBank.push(guessedLetter); // switched whats being pushed to where
-    console.log("Wrong guess");
-    incorrectGuesses++;
-  } else if (letterBank.includes(guessedLetter)) {
-    console.log("Letter has already been guessed");
-    return;
-  } else {
-    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
-
-    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
-    for (let i = 0; i < correctLetters.length; i++) {
-      //traverse the random word and find all ocurrences of the letter in the word
-      if (correctLetters[i] === guessedLetter) {
-        indexOfLetter.push(i);
-      }
-    }
-    letterBank.push(guessedLetter);
-    console.log("Correct guess");
-    return indexOfLetter;
-  }
-  // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
-  // console.log("Letters used: ", letterBank);
-}
 
 
 function displayWord(correctWord, guessedLetter) {
