@@ -11,36 +11,98 @@ const rl = readline.createInterface({
 });
 
 
-//for correctLetters.length, print 
-
-
 const randomWords = require('random-words')
-
 const correctWord = randomWords(1)
-// console.log("this is the correct word", correctWord)
 
+
+console.log("this is the random word", correctWord)
+
+//we may not need to turn this into a separate string array
 let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
 
-// console.log(correctLetters)
+console.log(correctWord)
+console.log(correctLetters)
+ function printBoard(correctWord, guessedLetters){
+   for(let i = 0; i < arr.length; i++){
+    if(checkIfLetterInArray(guessedLetters, correctWord))
+     process.stdout.write('_ ')    
+   }
+   else{
+    process.stdout.write('_ ')    
 
+   }
+ }
+
+// printBoard("Inside of printBoard", correctLetters)
+
+//this function will display the 
 let letterBank = [];
-let guessedLetters = []
 
-let incorrectGuesses = 0;
-let board = Array(correctLetters.length).fill('_')
+function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
+ 
+  if (correctLetters.includes(guessedLetter)|| incorrectGuesses.includes(guessedLetter)) {
+    //changed has to includes
+    console.log("You already guessed this letter.");
+    return;
+  } else if (!correctLetters.includes(guessedLetter)) {
+    //changed from guessedLetter ==== false
+    letterBank.push(guessedLetter); // switched whats being pushed to where
+    console.log("Wrong guess");
+    incorrectGuesses++;
+  } else if (letterBank.includes(guessedLetter)) {
+    console.log("Letter has already been guessed");
+    return;
+  } else {
+    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
 
-const printBoard = () => {
-  console.log(board.join(' '));
-}
-
-
-function ifLetterInArray(correctLettersArray, guessLetter){
-  if(correctLettersArray.includes(guessLetter)){
-    
+    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
+    for (let i = 0; i < correctLetters.length; i++) {
+      //traverse the random word and find all ocurrences of the letter in the word
+      if (correctLetters[i] === guessedLetter) {
+        indexOfLetter.push(i);
+      }
+    }
+    letterBank.push(guessedLetter);
+    console.log("Correct guess");
+    return indexOfLetter;
   }
+  // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
+  // console.log("Letters used: ", letterBank);
 }
 
 
+function displayWord(correctWord, guessedLetter) {
+  let displayWord = "";
+  for (let i = 0; i < correctWord.length; i++) {
+    if (guessedLetter.has(correctWord[i]))
+      displayWord = displayWord + correctWord[i] + " ";
+    else displayWord = displayWord + "_ ";
+  }
+  return displayWord; // added this return statement
+}
+
+
+//this function will get input(current guessed letter) from the user in the terminal
+function getCurrentGuessedLetter(){
+  const readInput = readline.Interface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  return new Promise(resolve => {
+    readInput.question("Guess a letter: ", guess => {
+      readInput.close()
+      resolve(guess.toLowerCase())
+    })
+  })
+}
+
+function updateGuessedLetters(guessedLetters, letter){
+  //letter needs to be defined, create a getLetter function that links to the DOM 
+  //word bank should be displayed on DOM, onclick() of letter, update it as a 
+  //guessed letter 
+
+  guessedLetters.add(letter)
+}
 
 
 //function that prints the board based on how many letters are in the word
@@ -70,7 +132,9 @@ const guessAmount = () => {
 
 
 
+
 //Terminal function @TODO edit function to apply to hangman
+
 
 
 
@@ -112,6 +176,4 @@ if (typeof describe === 'function') {
   });
 } else {
 
-  getPrompt();
-
-}
+  
