@@ -15,23 +15,23 @@ const randomWords = require('random-words')
 const correctWord = randomWords(1)
 
 
-console.log("this is the random word", correctWord)
+// console.log("this is the random word", correctWord)
 
 //we may not need to turn this into a separate string array
 let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
 
-console.log(correctWord)
-console.log(correctLetters)
- function printBoard(correctWord, guessedLetters){
-   for(let i = 0; i < arr.length; i++){
-    if(checkIfLetterInArray(guessedLetters, correctWord))
-     process.stdout.write('_ ')    
-   }
-   else{
-    process.stdout.write('_ ')    
+// console.log(correctWord)
+// console.log(correctLetters)
+//  function printBoard(correctWord, guessedLetters){
+//    for(let i = 0; i < arr.length; i++){
+//     if(checkIfLetterInArray(guessedLetters, correctWord))
+//      process.stdout.write('_ ')    
+//    }
+//    else{
+//     process.stdout.write('_ ')    
 
-   }
- }
+//    }
+//  }
 
 // printBoard("Inside of printBoard", correctLetters)
 
@@ -82,22 +82,6 @@ function displayWord(correctWord, guessedLetter) {
 }
 
 
-
-<<<<<<< HEAD
-//this function will get input(current guessed letter) from the user in the terminal
-function getCurrentGuessedLetter(){
-  const readInput = readline.Interface({
-    input: process.stdin,
-    output: process.stdout
-  });
-  return new Promise(resolve => {
-    readInput.question("Guess a letter: ", guess => {
-      readInput.close()
-      resolve(guess.toLowerCase())
-    })
-  })
-=======
-let letterBank = [];
 let incorrectGuesses = 0;
 
 function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
@@ -132,12 +116,7 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
   }
   // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
   // console.log("Letters used: ", letterBank);
->>>>>>> ccc5b50259b0a5ba92e4dea38589b108beb17ec6
 }
-
-
-
-
 
 //function for win
 const checkForWin = () => {
@@ -147,8 +126,6 @@ const checkForWin = () => {
   }
 }
 
-
-
 //function for losing
 const guessAmount = () => {
   if(incorrectGuesses === 6){
@@ -156,13 +133,6 @@ const guessAmount = () => {
     process.exit(0)
   }
 }
-
-
-
-
-
-//Terminal function @TODO edit function to apply to hangman
-
 
 
 
@@ -216,3 +186,4 @@ if (typeof describe === 'function') {
 
   });
 
+}
