@@ -69,8 +69,44 @@ const getPrompt = () => {
 // You use them run the command: npm test main.js
 // to close them ctrl + C
 if (typeof describe === 'function') {
+  describe('#checkArray', () => {
+      describe('when a letter has already been correctly guessed', () => {
+        it('should return true when using the `inlcude` method on the `correctLetters`', () => {
+          // Set up
+          const guessedLetter = 'a';
+          const correctWord = 'banana';
+          const correctLetters = ["a","b","n"];
+          const incorrectGuesses = [];
+          
+          // Exercise
+          const result = checkArray(correctLetters, guessedLetter, incorrectGuesses);
+    
+          // Verify
+          expect(result).toBe(true);
+        });
+      });
+    });
+  describe('#displayWord', () => {
+    describe('displays correctly guessed letters on board', () => {
+      it('should return correctly guessed words to board', () => {
+        const guessedLetter = 'a';
+        const correctWord = 'banana';
+        const correctLetters = ["a","b","n"];
+        const incorrectGuesses = [];
 
-  describe('#ticTacToe()', () => {
+        const result = displayWord(correctWord, guessedLetter);
+
+        expect(result).toBe('_','a','_','a','_','a');
+      });
+    });
+  });
+
+
+
+
+
+
+
     it('should place a letter on the dashes', () => {
       ticTacToe(1, 1);
       assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
