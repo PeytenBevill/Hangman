@@ -10,13 +10,10 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const alphabet = 
-['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-'t', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 const randomWords = require('random-words')
 const correctWord = randomWords(1)
+
 
 console.log("this is the random word", correctWord)
 
@@ -73,6 +70,7 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
   // console.log("Letters used: ", letterBank);
 }
 
+
 function displayWord(correctWord, guessedLetter) {
   let displayWord = "";
   for (let i = 0; i < correctWord.length; i++) {
@@ -117,24 +115,20 @@ function updateGuessedLetters(guessedLetters, letter){
 
 
 //function for win
-
-//function for losing
-const guessAmount = () => {
-  if(letterBank.length === 6){
-    console.log('You lost!')
-  } else {
-    return
+const checkForWin = () => {
+  if(correctLetters.length === guessedLetters.length){
+    console.log("You won!")
+    process.exit(0)
   }
 }
 
-
-
-// function checkForWin (correctLetters) {//function check for win or lose
-//   if () { // spaces not filled and out of guesses, player loses
-
-//   } 
-//   else //if array of spaces is filled, player wins
-// }
+//function for losing
+const guessAmount = () => {
+  if(incorrectGuesses === 6){
+    console.log('You lost!')
+    process.exit(0)
+  }
+}
 
 
 
@@ -143,25 +137,18 @@ const guessAmount = () => {
 
 
 
-// function playGame(){
-  
-//   const guessedLetters = new Set()//data structure for unique values
 
-//   while(){
-    
-//   }
-// }
-
-// const getPrompt = () => {
-//   printBoard();
-//   console.log("It's Player " + playerTurn + "'s turn.");
-//   rl.question('row: ', (row) => {
-//     rl.question('column: ', (column) => {
-//       ticTacToe(row, column);
-//       getPrompt();
-//     });
-//   });
-// }
+const getPrompt = () => {
+  printBoard();
+  console.log("Guess a letter, Player ");
+  rl.question('', (guessedLetter) => {
+    checkArray(guessedLetter.toLowerCase());
+    displayWord(correctWord, guessedLetter)
+    guessAmount()
+    checkForWin()
+    getPrompt();
+  });
+}
 
 
 // Unit Tests
