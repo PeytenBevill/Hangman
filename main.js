@@ -10,28 +10,42 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-let board = []
-
-
-//for correctLetters.length, print 
-
 
 const randomWords = require('random-words')
-
 const correctWord = randomWords(1)
-console.log("this is the correct word", correctWord)
 
-let correctLetters = correctWord.map(str => str.split('')).flat()
 
+console.log("this is the random word", correctWord)
+
+//we may not need to turn this into a separate string array
+let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
+
+console.log(correctWord)
 console.log(correctLetters)
+ function printBoard(correctWord, guessedLetters){
+   for(let i = 0; i < arr.length; i++){
+    if(checkIfLetterInArray(guessedLetters, correctWord))
+     process.stdout.write('_ ')    
+   }
+   else{
+    process.stdout.write('_ ')    
+
+   }
+ }
 
 
-const printBoard = (arr) => {
-  for(let i = 0; i < arr.length; i++){
-    process.stdout.write('_ ')
+
+
+function displayWord(correctWord, guessedLetter) {
+  let displayWord = "";
+  for (let i = 0; i < correctWord.length; i++) {
+    if (guessedLetter.has(correctWord[i]))
+      displayWord = displayWord + correctWord[i] + " ";
+    else displayWord = displayWord + "_ ";
   }
+  return displayWord; // added this return statement
 }
-printBoard(correctLetters)
+
 
 
 let letterBank = [];
@@ -72,27 +86,45 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
 }
 
 
-function displayWord(correctWord, guessedLetter) {
-  let displayWord = "";
-  for (let i = 0; i < correctWord.length; i++) {
-    if (guessedLetter.has(correctWord[i]))
-      displayWord = displayWord + correctWord[i] + " ";
-    else displayWord = displayWord + "_ ";
+
+
+
+//function for win
+const checkForWin = () => {
+  if(correctLetters.length === guessedLetters.length){
+    console.log("You won!")
+    process.exit(0)
   }
-  return displayWord; // added this return statement
 }
 
 
 
+//function for losing
+const guessAmount = () => {
+  if(incorrectGuesses === 6){
+    console.log('You lost!')
+    process.exit(0)
+  }
+}
+
+
+
+
+
 //Terminal function @TODO edit function to apply to hangman
+
+
+
+
 const getPrompt = () => {
   printBoard();
-  console.log("It's Player " + playerTurn + "'s turn.");
-  rl.question('row: ', (row) => {
-    rl.question('column: ', (column) => {
-      ticTacToe(row, column);
-      getPrompt();
-    });
+  console.log("Guess a letter, Player ");
+  rl.question('', (guessedLetter) => {
+    checkArray(guessedLetter.toLowerCase());
+    displayWord(correctWord, guessedLetter)
+    guessAmount()
+    checkForWin()
+    getPrompt();
   });
 }
 
@@ -131,4 +163,6 @@ if (typeof describe === 'function') {
         expect(result).toBe('_','a','_','a','_','a');
       });
     });
+
   });
+
