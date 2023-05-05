@@ -10,13 +10,10 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const alphabet = 
-['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-'t', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 const randomWords = require('random-words')
 const correctWord = randomWords(1)
+
 
 console.log("this is the random word", correctWord)
 
@@ -73,6 +70,7 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
   // console.log("Letters used: ", letterBank);
 }
 
+
 function displayWord(correctWord, guessedLetter) {
   let displayWord = "";
   for (let i = 0; i < correctWord.length; i++) {
@@ -85,6 +83,7 @@ function displayWord(correctWord, guessedLetter) {
 
 
 
+<<<<<<< HEAD
 //this function will get input(current guessed letter) from the user in the terminal
 function getCurrentGuessedLetter(){
   const readInput = readline.Interface({
@@ -97,45 +96,67 @@ function getCurrentGuessedLetter(){
       resolve(guess.toLowerCase())
     })
   })
+=======
+let letterBank = [];
+let incorrectGuesses = 0;
+
+function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
+  if (
+    correctLetters.includes(guessedLetter) ||
+    incorrectGuesses.includes(guessedLetter)
+  ) {
+    //changed has to includes
+    console.log("You already guessed this letter.");
+    return;
+  } else if (!correctLetters.includes(guessedLetter)) {
+    //changed from guessedLetter ==== false
+    letterBank.push(guessedLetter); // switched whats being pushed to where
+    console.log("Wrong guess");
+    incorrectGuesses++;
+  } else if (letterBank.includes(guessedLetter)) {
+    console.log("Letter has already been guessed");
+    return;
+  } else {
+    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
+
+    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
+    for (let i = 0; i < correctLetters.length; i++) {
+      //traverse the random word and find all ocurrences of the letter in the word
+      if (correctLetters[i] === guessedLetter) {
+        indexOfLetter.push(i);
+      }
+    }
+    letterBank.push(guessedLetter);
+    console.log("Correct guess");
+    return indexOfLetter;
+  }
+  // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
+  // console.log("Letters used: ", letterBank);
+>>>>>>> ccc5b50259b0a5ba92e4dea38589b108beb17ec6
 }
 
-function updateGuessedLetters(guessedLetters, letter){
-  //letter needs to be defined, create a getLetter function that links to the DOM 
-  //word bank should be displayed on DOM, onclick() of letter, update it as a 
-  //guessed letter 
-
-  guessedLetters.add(letter)
-}
-
-
-//function that prints the board based on how many letters are in the word
-
-//function that shows how many letters are in the word (turn word to individual letters)
-
-//Player guesses a letter and changes to uppercase letters
 
 
 
 
 //function for win
-
-//function for losing
-const guessAmount = () => {
-  if(letterBank.length === 6){
-    console.log('You lost!')
-  } else {
-    return
+const checkForWin = () => {
+  if(correctLetters.length === guessedLetters.length){
+    console.log("You won!")
+    process.exit(0)
   }
 }
 
 
 
-// function checkForWin (correctLetters) {//function check for win or lose
-//   if () { // spaces not filled and out of guesses, player loses
+//function for losing
+const guessAmount = () => {
+  if(incorrectGuesses === 6){
+    console.log('You lost!')
+    process.exit(0)
+  }
+}
 
-//   } 
-//   else //if array of spaces is filled, player wins
-// }
 
 
 
@@ -144,50 +165,54 @@ const guessAmount = () => {
 
 
 
-// function playGame(){
-  
-//   const guessedLetters = new Set()//data structure for unique values
 
-//   while(){
-    
-//   }
-// }
-
-// const getPrompt = () => {
-//   printBoard();
-//   console.log("It's Player " + playerTurn + "'s turn.");
-//   rl.question('row: ', (row) => {
-//     rl.question('column: ', (column) => {
-//       ticTacToe(row, column);
-//       getPrompt();
-//     });
-//   });
-// }
+const getPrompt = () => {
+  printBoard();
+  console.log("Guess a letter, Player ");
+  rl.question('', (guessedLetter) => {
+    checkArray(guessedLetter.toLowerCase());
+    displayWord(correctWord, guessedLetter)
+    guessAmount()
+    checkForWin()
+    getPrompt();
+  });
+}
 
 
 // Unit Tests
 // You use them run the command: npm test main.js
 // to close them ctrl + C
 if (typeof describe === 'function') {
+  describe('#checkArray', () => {
+      describe('when a letter has already been correctly guessed', () => {
+        it('should return true when using the `inlcude` method on the `correctLetters`', () => {
+          // Set up
+          const guessedLetter = 'a';
+          const correctWord = 'banana';
+          const correctLetters = ["a","b","n"];
+          const incorrectGuesses = [];
+          
+          // Exercise
+          const result = checkArray(correctLetters, guessedLetter, incorrectGuesses);
+    
+          // Verify
+          expect(result).toBe(true);
+        });
+      });
+    });
+  describe('#displayWord', () => {
+    describe('displays correctly guessed letters on board', () => {
+      it('should return correctly guessed words to board', () => {
+        const guessedLetter = 'a';
+        const correctWord = 'banana';
+        const correctLetters = ["a","b","n"];
+        const incorrectGuesses = [];
 
-  describe('#ticTacToe()', () => {
-    it('should place a letter on the dashes', () => {
-      ticTacToe(1, 1);
-      assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
-    it('should check if a guesses letter is correct word', () => {
-      ticTacToe(0, 0);
-      assert.deepEqual(board, [ ['O', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
-    it('should place wrong letters in bank', () => {
-      board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
-      assert.equal(horizontalWin(), true);
+        const result = displayWord(correctWord, guessedLetter);
+
+        expect(result).toBe('_','a','_','a','_','a');
+      });
     });
 
-    it('should detect a win', () => {
-      assert.equal(checkForWin(), true);
-    });
   });
-} else {
 
-  
