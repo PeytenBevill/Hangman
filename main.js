@@ -10,8 +10,6 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-let board = []
-
 
 //for correctLetters.length, print 
 
@@ -19,24 +17,21 @@ let board = []
 const randomWords = require('random-words')
 
 const correctWord = randomWords(1)
-console.log("this is the correct word", correctWord)
+// console.log("this is the correct word", correctWord)
 
 let correctLetters = correctWord.map(str => str.split('')).flat()// turns word into an array of letters
 
-console.log(correctLetters)
+// console.log(correctLetters)
 
+let letterBank = [];
+let guessedLetters = []
 
-const printBoard = (arr) => {
-  for(let i = 0; i < arr.length; i++){
-    console.log("")
-    for(let j = 0; j < arr.length; j++){
-      process.stdout.write('a ')
-      process.stdout.write('_ ')
-    }
-    
-  }
+let incorrectGuesses = 0;
+let board = Array(correctLetters.length).fill('_')
+
+const printBoard = () => {
+  console.log(board.join(' '));
 }
-printBoard(correctLetters)
 
 
 function ifLetterInArray(correctLettersArray, guessLetter){
@@ -58,36 +53,22 @@ function ifLetterInArray(correctLettersArray, guessLetter){
 
 
 //function for win
+const checkForWin = () => {
+  if(correctLetters.length === guessedLetters.length){
+    console.log("You won!")
+    process.exit(0)
+  }
+}
 
 //function for losing
 const guessAmount = () => {
-  if(letterBank.length === 6){
+  if(incorrectGuesses === 6){
     console.log('You lost!')
-  } else {
-    return
+    process.exit(0)
   }
 }
 
 
-
-function checkForWin (correctLetters) {//function check for win or lose
-  if () { // spaces not filled and out of guesses, player loses
-
-  } 
-  else //if array of spaces is filled, player wins
-}
-
-
-//function for wrong letters into a letter bank that can't be reused
-const wrongLetters = () => {
-  let letterBank = []
-  if(guessLetter === false){
-    guessLetter.push(letterBank)
-  } else if(letterBank.includes(guessLetter)){
-    console.log("Letter has already been guessed")
-    return
-  }
-}
 
 //Terminal function @TODO edit function to apply to hangman
 
@@ -95,12 +76,13 @@ const wrongLetters = () => {
 
 const getPrompt = () => {
   printBoard();
-  console.log("It's Player " + playerTurn + "'s turn.");
-  rl.question('row: ', (row) => {
-    rl.question('column: ', (column) => {
-      ticTacToe(row, column);
-      getPrompt();
-    });
+  console.log("Guess a letter, Player ");
+  rl.question('', (guessedLetter) => {
+    checkArray(guessedLetter.toLowerCase());
+    displayWord(correctWord, guessedLetter)
+    guessAmount()
+    checkForWin()
+    getPrompt();
   });
 }
 
