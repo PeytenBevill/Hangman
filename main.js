@@ -14,11 +14,26 @@ const rl = readline.createInterface({
 //for correctLetters.length, print 
 
 
+// console.log("this is the random word", correctWord)
+=======
 const randomWords = require('random-words')
 
 const correctWord = randomWords(1)
 // console.log("this is the correct word", correctWord)
 
+// console.log(correctWord)
+// console.log(correctLetters)
+//  function printBoard(correctWord, guessedLetters){
+//    for(let i = 0; i < arr.length; i++){
+//     if(checkIfLetterInArray(guessedLetters, correctWord))
+//      process.stdout.write('_ ')    
+//    }
+//    else{
+//     process.stdout.write('_ ')    
+
+//    }
+//  }
+=======
 let correctLetters = correctWord.map(str => str.split('')).flat()
 
 
@@ -36,6 +51,42 @@ const printBoard = () => {
 }
 
 
+let incorrectGuesses = 0;
+
+function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
+  if (
+    correctLetters.includes(guessedLetter) ||
+    incorrectGuesses.includes(guessedLetter)
+  ) {
+    //changed has to includes
+    console.log("You already guessed this letter.");
+    return;
+  } else if (!correctLetters.includes(guessedLetter)) {
+    //changed from guessedLetter ==== false
+    letterBank.push(guessedLetter); // switched whats being pushed to where
+    console.log("Wrong guess");
+    incorrectGuesses++;
+  } else if (letterBank.includes(guessedLetter)) {
+    console.log("Letter has already been guessed");
+    return;
+  } else {
+    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
+
+    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
+    for (let i = 0; i < correctLetters.length; i++) {
+      //traverse the random word and find all ocurrences of the letter in the word
+      if (correctLetters[i] === guessedLetter) {
+        indexOfLetter.push(i);
+      }
+    }
+    letterBank.push(guessedLetter);
+    console.log("Correct guess");
+    return indexOfLetter;
+  }
+  // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
+  // console.log("Letters used: ", letterBank);
+}
+=======
 //function that prints the board based on how many letters are in the word
 
 //function that shows how many letters are in the word (turn word to individual letters)
@@ -63,6 +114,7 @@ const guessAmount = () => {
 
 
 
+=======
 //Terminal function @TODO edit function to apply to hangman
 const getPrompt = () => {
   printBoard();
@@ -116,4 +168,5 @@ if (typeof describe === 'function') {
 
   getPrompt();
 
+}
 }
