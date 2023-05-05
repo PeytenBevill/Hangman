@@ -72,11 +72,14 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
 }
 
 
-function checkForWin (correctLetters) {//function check for win or lose
-  if () { // spaces not filled and out of guesses, player loses
-
-  } 
-  else //if array of spaces is filled, player wins
+function displayWord(correctWord, guessedLetter) {
+  let displayWord = "";
+  for (let i = 0; i < correctWord.length; i++) {
+    if (guessedLetter.has(correctWord[i]))
+      displayWord = displayWord + correctWord[i] + " ";
+    else displayWord = displayWord + "_ ";
+  }
+  return displayWord; // added this return statement
 }
 
 
