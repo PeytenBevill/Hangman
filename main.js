@@ -34,14 +34,43 @@ const printBoard = (arr) => {
 printBoard(correctLetters)
 
 
+let letterBank = [];
+let incorrectGuesses = 0;
 
-//function that prints the board based on how many letters are in the word
+function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
+  if (
+    correctLetters.includes(guessedLetter) ||
+    incorrectGuesses.includes(guessedLetter)
+  ) {
+    //changed has to includes
+    console.log("You already guessed this letter.");
+    return;
+  } else if (!correctLetters.includes(guessedLetter)) {
+    //changed from guessedLetter ==== false
+    letterBank.push(guessedLetter); // switched whats being pushed to where
+    console.log("Wrong guess");
+    incorrectGuesses++;
+  } else if (letterBank.includes(guessedLetter)) {
+    console.log("Letter has already been guessed");
+    return;
+  } else {
+    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
 
-//function that shows how many letters are in the word (turn word to individual letters)
+    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
+    for (let i = 0; i < correctLetters.length; i++) {
+      //traverse the random word and find all ocurrences of the letter in the word
+      if (correctLetters[i] === guessedLetter) {
+        indexOfLetter.push(i);
+      }
+    }
+    letterBank.push(guessedLetter);
+    console.log("Correct guess");
+    return indexOfLetter;
+  }
+  // guessedLetter.push(guessedLetter); // adds guessed letter to array console logs all guessed letters (letterbank)
+  // console.log("Letters used: ", letterBank);
+}
 
-//Player guesses a letter and changes to uppercase letters
-
-//function that shows if the letter is in the word and how many times and what spaces it's in 
 
 function checkForWin (correctLetters) {//function check for win or lose
   if () { // spaces not filled and out of guesses, player loses
@@ -50,7 +79,7 @@ function checkForWin (correctLetters) {//function check for win or lose
   else //if array of spaces is filled, player wins
 }
 
-//function for wrong letters into a letter bank that can't be reused
+
 
 //Terminal function @TODO edit function to apply to hangman
 const getPrompt = () => {
@@ -100,32 +129,3 @@ if (typeof describe === 'function') {
       });
     });
   });
-
-
-
-
-
-
-
-    it('should place a letter on the dashes', () => {
-      ticTacToe(1, 1);
-      assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
-    it('should check if a guesses letter is correct word', () => {
-      ticTacToe(0, 0);
-      assert.deepEqual(board, [ ['O', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
-    it('should place wrong letters in bank', () => {
-      board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
-      assert.equal(horizontalWin(), true);
-    });
-
-    it('should detect a win', () => {
-      assert.equal(checkForWin(), true);
-    });
-  });
-} else {
-
-  getPrompt();
-
-}
