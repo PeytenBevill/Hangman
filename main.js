@@ -13,6 +13,18 @@ const rl = readline.createInterface({
 
 
 
+
+
+const randomWords = require('random-words')
+//for correctLetters.length, print 
+
+const correctWord = randomWords({exactly: 1, maxLength: 10})[0];
+
+let correctLetters = Array.from(correctWord, () => '_');
+
+console.log("this is the random word", correctWord)
+
+=
 const randomWords = require('random-words')
 
 
@@ -24,6 +36,7 @@ console.log("this is the random word", correctWord)
 
 let letterBank = [];
 
+
 let maxAttempts = 6;
 
 let attemptsLeft = maxAttempts;
@@ -34,6 +47,49 @@ const printBoard = () => {
 }
 
 
+function displayWord(guessedLetter) {
+  for (let i = 0; i < correctWord.length; i++) {
+    if (correctWord[i] === guessedLetter) {
+      correctLetters[i] = guessedLetter;
+let incorrectGuesses = 0;
+let board = Array(correctLetters.length).fill('_')
+let maxAttempts = 6;
+
+let attemptsLeft = maxAttempts;
+
+
+const printBoard = () => {
+  console.log(correctLetters.join(' '));
+}
+
+
+let incorrectGuesses = 0;
+
+function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
+  if (
+    correctLetters.includes(guessedLetter) ||
+    incorrectGuesses.includes(guessedLetter)
+  ) {
+    //changed has to includes
+    console.log("You already guessed this letter.");
+    return;
+  } else if (!correctLetters.includes(guessedLetter)) {
+    //changed from guessedLetter ==== false
+    letterBank.push(guessedLetter); // switched whats being pushed to where
+    console.log("Wrong guess");
+    incorrectGuesses++;
+  } else if (letterBank.includes(guessedLetter)) {
+    console.log("Letter has already been guessed");
+    return;
+  } else {
+    // removed (correctLetters.includes(guessLetter)) //if the letter is in the array we want to add the guessed letter to an array of already guessed letters
+
+    let indexOfLetter = []; //initialize empty array to place letters that have already been guessed
+    for (let i = 0; i < correctLetters.length; i++) {
+      //traverse the random word and find all ocurrences of the letter in the word
+      if (correctLetters[i] === guessedLetter) {
+        indexOfLetter.push(i);
+      }
 function displayWord(guessedLetter) {
   for (let i = 0; i < correctWord.length; i++) {
     if (correctWord[i] === guessedLetter) {
@@ -65,6 +121,11 @@ const checkForWin = () => {
   return !correctLetters.includes('_');
 }
 
+
+const checkForWin = () => {
+  return !correctLetters.includes('_');
+}
+
 const guessAmount = () => {
   return attemptsLeft === 0;
 
@@ -73,6 +134,10 @@ function endGame(message) {
   console.log(`The word was: ${correctWord}`);
   process.exit();
 }
+
+
+
+
 
 
 function getPrompt() {
@@ -91,9 +156,6 @@ function getPrompt() {
 }
 
 getPrompt()
-
-
-
 if (typeof describe === 'function') {
   const assert = require('assert');
 
@@ -138,6 +200,7 @@ getPrompt()
 // You use them run the command: npm test main.js
 // to close them ctrl + C
 if (typeof describe === 'function') {
+
   describe('#checkArray', () => {
       describe('when a letter has already been correctly guessed', () => {
         it('should return true when using the include method on the correctLetters', () => {
@@ -155,21 +218,10 @@ if (typeof describe === 'function') {
         });
       });
     });
-  describe('#displayWord', () => {
-    describe('displays correctly guessed letters on board', () => {
-      it('should return correctly guessed words to board', () => {
-        const guessedLetter = 'a';
-        const correctWord = 'banana';
-        const correctLetters = ["a","b","n"];
-        const incorrectGuesses = [];
+  });
 
-        const result = displayWord(correctWord, guessedLetter);
-
-        expect(result).toBe('','a','','a','_','a');
-      });
     });
-
-
+ 
 describe('#guessAmount', () => {
   it('should return true when `attemptsLeft` is 0', () => {
     attemptsLeft = 0;
