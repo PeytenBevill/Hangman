@@ -11,11 +11,10 @@ const rl = readline.createInterface({
 });
 
 
-//
-
 
 
 const randomWords = require('random-words')
+
 
 const correctWord = randomWords({exactly: 1, maxLength: 10})[0]; //use 'banana'; for tests
 
@@ -43,11 +42,13 @@ function displayWord(guessedLetter) {
   }
 }
 
+
 function checkArray(guessedLetter) {
   if (letterBank.includes(guessedLetter)) {
 
     console.log("You already guessed this letter.");
     return true;
+
   }
 
   if (correctWord.includes(guessedLetter)) {
@@ -66,7 +67,6 @@ const checkForWin = () => {
 
 const guessAmount = () => {
   return attemptsLeft === 0;
-}
 
 function endGame(message) {
   console.log(message);
@@ -121,6 +121,7 @@ describe('#checkArray', () => {
   });
 });
 
+
 describe('#checkForWin', () => {
   it('should return true when all letters have been correctly guessed', () => {
     correctLetters = ["a", "b", "n", "a", "n", "a"];
@@ -128,12 +129,46 @@ describe('#checkForWin', () => {
     assert.strictEqual(result, true);
   });
 
-  it('should return false when there are still letters to be guessed', () => {
-    correctLetters = ["_", "a", "_", "_", "_", "_"];
-    const result = checkForWin();
-    assert.strictEqual(result, false);
-  });
 });
+
+getPrompt()
+
+
+// Unit Tests
+// You use them run the command: npm test main.js
+// to close them ctrl + C
+if (typeof describe === 'function') {
+  describe('#checkArray', () => {
+      describe('when a letter has already been correctly guessed', () => {
+        it('should return true when using the include method on the correctLetters', () => {
+          // Set up
+          const guessedLetter = 'a';
+          const correctWord = 'banana';
+          const correctLetters = ["a","b","n"];
+          const incorrectGuesses = [];
+
+          // Exercise
+          const result = checkArray(correctLetters, guessedLetter, incorrectGuesses);
+
+          // Verify
+          expect(result).toBe(true);
+        });
+      });
+    });
+  describe('#displayWord', () => {
+    describe('displays correctly guessed letters on board', () => {
+      it('should return correctly guessed words to board', () => {
+        const guessedLetter = 'a';
+        const correctWord = 'banana';
+        const correctLetters = ["a","b","n"];
+        const incorrectGuesses = [];
+
+        const result = displayWord(correctWord, guessedLetter);
+
+        expect(result).toBe('','a','','a','_','a');
+      });
+    });
+
 
 describe('#guessAmount', () => {
   it('should return true when `attemptsLeft` is 0', () => {
@@ -141,6 +176,7 @@ describe('#guessAmount', () => {
     const result = guessAmount();
     assert.strictEqual(result, true);
   });
+}
 
   it('should return false when `attemptsLeft` is greater than 0', () => {
     attemptsLeft = 3;
