@@ -11,53 +11,32 @@ const rl = readline.createInterface({
 });
 
 
-<<<<<<< HEAD
+
 
 
 
 const randomWords = require('random-words')
-=======
 //for correctLetters.length, print 
->>>>>>> 2a013433f6ce8bcd5fa96c10bb3c000b3d144a7b
 
 const correctWord = randomWords({exactly: 1, maxLength: 10})[0];
 
-<<<<<<< HEAD
 let correctLetters = Array.from(correctWord, () => '_');
 
 console.log("this is the random word", correctWord)
 
-=======
-// console.log("this is the random word", correctWord)
-=======
+=
 const randomWords = require('random-words')
 
-const correctWord = randomWords(1)
-// console.log("this is the correct word", correctWord)
 
-// console.log(correctWord)
-// console.log(correctLetters)
-//  function printBoard(correctWord, guessedLetters){
-//    for(let i = 0; i < arr.length; i++){
-//     if(checkIfLetterInArray(guessedLetters, correctWord))
-//      process.stdout.write('_ ')    
-//    }
-//    else{
-//     process.stdout.write('_ ')    
+const correctWord = randomWords({exactly: 1, maxLength: 10})[0]; //use 'banana'; for tests
 
-//    }
-//  }
-=======
-let correctLetters = correctWord.map(str => str.split('')).flat()
+let correctLetters = Array.from(correctWord, () => '_');
 
+console.log("this is the random word", correctWord)
 
-// console.log(correctLetters)
-
->>>>>>> 2a013433f6ce8bcd5fa96c10bb3c000b3d144a7b
 let letterBank = [];
-let guessedLetters = []
 
-<<<<<<< HEAD
+
 let maxAttempts = 6;
 
 let attemptsLeft = maxAttempts;
@@ -72,13 +51,15 @@ function displayWord(guessedLetter) {
   for (let i = 0; i < correctWord.length; i++) {
     if (correctWord[i] === guessedLetter) {
       correctLetters[i] = guessedLetter;
-=======
 let incorrectGuesses = 0;
 let board = Array(correctLetters.length).fill('_')
+let maxAttempts = 6;
+
+let attemptsLeft = maxAttempts;
 
 
 const printBoard = () => {
-  console.log(board.join(' '));
+  console.log(correctLetters.join(' '));
 }
 
 
@@ -109,27 +90,21 @@ function checkArray(correctLetters, guessedLetter, incorrectGuesses) {
       if (correctLetters[i] === guessedLetter) {
         indexOfLetter.push(i);
       }
->>>>>>> 2a013433f6ce8bcd5fa96c10bb3c000b3d144a7b
+function displayWord(guessedLetter) {
+  for (let i = 0; i < correctWord.length; i++) {
+    if (correctWord[i] === guessedLetter) {
+      correctLetters[i] = guessedLetter;
     }
   }
 }
-=======
-//function that prints the board based on how many letters are in the word
-
-//function that shows how many letters are in the word (turn word to individual letters)
-
-//Player guesses a letter
-
-//function that shows if the letter is in the word and how many times and what spaces it's in
-
-
 
 
 function checkArray(guessedLetter) {
   if (letterBank.includes(guessedLetter)) {
 
     console.log("You already guessed this letter.");
-    return
+    return true;
+
   }
 
   if (correctWord.includes(guessedLetter)) {
@@ -146,9 +121,13 @@ const checkForWin = () => {
   return !correctLetters.includes('_');
 }
 
+
+const checkForWin = () => {
+  return !correctLetters.includes('_');
+}
+
 const guessAmount = () => {
   return attemptsLeft === 0;
-}
 
 function endGame(message) {
   console.log(message);
@@ -157,14 +136,11 @@ function endGame(message) {
 }
 
 
-<<<<<<< HEAD
-function getPrompt() {
-=======
 
-=======
-//Terminal function @TODO edit function to apply to hangman
-const getPrompt = () => {
->>>>>>> 2a013433f6ce8bcd5fa96c10bb3c000b3d144a7b
+
+
+
+function getPrompt() {
   printBoard();
   rl.question('Guess a letter: ', (guessedLetter) => {
     checkArray(guessedLetter.toLowerCase());
@@ -180,13 +156,51 @@ const getPrompt = () => {
 }
 
 getPrompt()
+if (typeof describe === 'function') {
+  const assert = require('assert');
+
+// Unit Tests
+describe('#displayWord', () => {
+  it('should correctly update the `correctLetters` array with the guessed letter', () => {
+    const guessedLetter = 'a';
+    displayWord(guessedLetter);
+    assert.deepStrictEqual(correctLetters, ["_", "a", "_", "a", "_", "a"]);
+  });
+});
+describe('#checkArray', () => {
+  it('should return true when the guessed letter has already been correctly guessed', () => {
+    const guessedLetter = 'a';
+    letterBank = ["a", "b"];
+    const result = checkArray(guessedLetter);
+    assert.strictEqual(result, true);
+  });
+
+  it('should decrease `attemptsLeft` when the guessed letter is incorrect', () => {
+    const guessedLetter = 'c';
+    attemptsLeft = 6;
+    checkArray(guessedLetter);
+    assert.strictEqual(attemptsLeft, 5);
+  });
+});
+
+
+describe('#checkForWin', () => {
+  it('should return true when all letters have been correctly guessed', () => {
+    correctLetters = ["a", "b", "n", "a", "n", "a"];
+    const result = checkForWin();
+    assert.strictEqual(result, true);
+  });
+
+});
+
+getPrompt()
 
 
 // Unit Tests
 // You use them run the command: npm test main.js
 // to close them ctrl + C
 if (typeof describe === 'function') {
-<<<<<<< HEAD
+
   describe('#checkArray', () => {
       describe('when a letter has already been correctly guessed', () => {
         it('should return true when using the include method on the correctLetters', () => {
@@ -204,59 +218,22 @@ if (typeof describe === 'function') {
         });
       });
     });
-
-  describe('#displayWord', () => {
-    describe('displays correctly guessed letters on board', () => {
-      it('should return correctly guessed words to board', () => {
-        const guessedLetter = 'a';
-        const correctWord = 'banana';
-        const correctLetters = ["a","b","n"];
-        const incorrectGuesses = [];
-
-        const result = displayWord(correctWord, guessedLetter);
-
-        expect(result).toBe('','a','','a','_','a');
-      });
-=======
-
-  describe('#ticTacToe()', () => {
-    it('should place mark on the board', () => {
-      ticTacToe(1, 1);
-      assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
-    it('should alternate between players', () => {
-      ticTacToe(0, 0);
-      assert.deepEqual(board, [ ['O', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
-    });
-    it('should check for vertical wins', () => {
-      board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
-      assert.equal(verticalWin(), true);
-    });
-    it('should check for horizontal wins', () => {
-      board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
-      assert.equal(horizontalWin(), true);
-    });
-    it('should check for diagonal wins', () => {
-      board = [ ['X', ' ', ' '], [' ', 'X', ' '], [' ', ' ', 'X'] ];
-      assert.equal(diagonalWin(), true);
-    });
-    it('should detect a win', () => {
-      ticTacToe(0, 0)
-      ticTacToe(0, 1)
-      ticTacToe(1, 1)
-      ticTacToe(0, 2)
-      ticTacToe(2, 2)
-      assert.equal(checkForWin(), true);
->>>>>>> 2a013433f6ce8bcd5fa96c10bb3c000b3d144a7b
-    });
   });
-<<<<<<< HEAD
-}
-=======
-} else {
 
-  getPrompt();
+    });
+ 
+describe('#guessAmount', () => {
+  it('should return true when `attemptsLeft` is 0', () => {
+    attemptsLeft = 0;
+    const result = guessAmount();
+    assert.strictEqual(result, true);
+  });
+}
 
+  it('should return false when `attemptsLeft` is greater than 0', () => {
+    attemptsLeft = 3;
+    const result = guessAmount();
+    assert.strictEqual(result, false);
+  });
+});
 }
-}
->>>>>>> 2a013433f6ce8bcd5fa96c10bb3c000b3d144a7b
