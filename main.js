@@ -13,10 +13,10 @@ const rl = readline.createInterface({
 
 
 
-
 const randomWords = require('random-words')
 
-const correctWord = randomWords({exactly: 1, maxLength: 10})[0];
+
+const correctWord = randomWords({exactly: 1, maxLength: 10})[0]; //use 'banana'; for tests
 
 let correctLetters = Array.from(correctWord, () => '_');
 
@@ -43,12 +43,12 @@ function displayWord(guessedLetter) {
 }
 
 
-
 function checkArray(guessedLetter) {
   if (letterBank.includes(guessedLetter)) {
 
     console.log("You already guessed this letter.");
-    return
+    return true;
+
   }
 
   if (correctWord.includes(guessedLetter)) {
@@ -67,7 +67,6 @@ const checkForWin = () => {
 
 const guessAmount = () => {
   return attemptsLeft === 0;
-}
 
 function endGame(message) {
   console.log(message);
@@ -90,6 +89,47 @@ function getPrompt() {
     }
   });
 }
+
+getPrompt()
+
+
+
+if (typeof describe === 'function') {
+  const assert = require('assert');
+
+// Unit Tests
+describe('#displayWord', () => {
+  it('should correctly update the `correctLetters` array with the guessed letter', () => {
+    const guessedLetter = 'a';
+    displayWord(guessedLetter);
+    assert.deepStrictEqual(correctLetters, ["_", "a", "_", "a", "_", "a"]);
+  });
+});
+describe('#checkArray', () => {
+  it('should return true when the guessed letter has already been correctly guessed', () => {
+    const guessedLetter = 'a';
+    letterBank = ["a", "b"];
+    const result = checkArray(guessedLetter);
+    assert.strictEqual(result, true);
+  });
+
+  it('should decrease `attemptsLeft` when the guessed letter is incorrect', () => {
+    const guessedLetter = 'c';
+    attemptsLeft = 6;
+    checkArray(guessedLetter);
+    assert.strictEqual(attemptsLeft, 5);
+  });
+});
+
+
+describe('#checkForWin', () => {
+  it('should return true when all letters have been correctly guessed', () => {
+    correctLetters = ["a", "b", "n", "a", "n", "a"];
+    const result = checkForWin();
+    assert.strictEqual(result, true);
+  });
+
+});
 
 getPrompt()
 
@@ -129,6 +169,19 @@ if (typeof describe === 'function') {
       });
     });
 
+
+describe('#guessAmount', () => {
+  it('should return true when `attemptsLeft` is 0', () => {
+    attemptsLeft = 0;
+    const result = guessAmount();
+    assert.strictEqual(result, true);
   });
 }
 
+  it('should return false when `attemptsLeft` is greater than 0', () => {
+    attemptsLeft = 3;
+    const result = guessAmount();
+    assert.strictEqual(result, false);
+  });
+});
+}
